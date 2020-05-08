@@ -30,6 +30,17 @@ Resources:
         SubnetIds:
           - subnet-ec51438b
 
+  IndexPhotosLambdaS3Permission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: 'lambda:InvokeFunction'
+#      EventSourceToken: String
+      FunctionName: !GetAtt IndexPhotosLambda.Arn
+      Principal: 's3.amazonaws.com'
+#      SourceAccount: String
+      SourceArn: 'arn:aws:s3:::ass3-b2-cd'
+
+
   SearchPhotosLambda:
     Type: 'AWS::Serverless::Function'
     Properties:
@@ -82,10 +93,10 @@ Resources:
     Type: 'AWS::S3::Bucket'
     Properties:
       BucketName: ass3-b2-cd
-#      NotificationConfiguration:
-#        LambdaConfigurations:
-#          - Event: 's3:ObjectCreated:Put'
-#            Function: !GetAtt IndexPhotosLambda.Arn
+      NotificationConfiguration:
+        LambdaConfigurations:
+          - Event: 's3:ObjectCreated:Put'
+            Function: !GetAtt IndexPhotosLambda.Arn
 #            Function: 'arn:aws:lambda:us-east-1:232083808386:function:index-photos-cd'
 #      PublicAccessBlockConfiguration:
 #        BlockPublicAcls: false
