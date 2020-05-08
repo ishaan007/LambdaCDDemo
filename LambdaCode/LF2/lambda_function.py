@@ -3,6 +3,9 @@ import boto3
 from elasticsearch import Elasticsearch
 import certifi
 
+# TODO: update
+host = 'https://vpc-photos-test-kxphmar6eg4ezxngicoz5kibqm.us-east-1.es.amazonaws.com'  # the Amazon ES domain, including https://
+index = 'photos-cd'
 
 def disambiguate_query(query, userId):
     # return object is dict with slotvalues
@@ -35,7 +38,7 @@ def search_index(keywords):
     # Use elasticsearch library
     # es_host = es_domain_endpoint('photos-test')
 
-    es = Elasticsearch(['https://vpc-photos-test-kxphmar6eg4ezxngicoz5kibqm.us-east-1.es.amazonaws.com'],
+    es = Elasticsearch([host],
                        ##[{'host': es_host, 'port': 443}  ], #
                        use_ssl=True,
                        ca_certs=certifi.where()
@@ -70,7 +73,7 @@ def search_index(keywords):
             }
         }
 
-    es_res = es.search(index='photos-test', body=query)
+    es_res = es.search(index=index, body=query)
     res = []
     for hit in es_res['hits']['hits']:
         obj = hit['_source']
