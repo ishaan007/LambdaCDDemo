@@ -2,23 +2,61 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: CD Demo Lambda
 Resources:
-  CDDemoLambda:
+  IndexPhotosLambda:
     Type: 'AWS::Serverless::Function'
     Properties:
-      FunctionName: LFX5
+      FunctionName: index-photos-cd
       Handler: lambda_function.lambda_handler
       Runtime: python3.8
-      CodeUri: ./LambdaCode/F1/lambda_function.py
-      Description: 'Lambda function for CD Demo'
+      CodeUri: ./LambdaCode/LF1/lambda_function.py
+      Description: 'Index photos function'
       MemorySize: 128
       Timeout: 30
-      Role: 'arn:aws:iam::232083808386:role/stack_cloudform'
-      Events:
-        getAZsAPI:
-          Type: Api
-          Properties:
-            Path: /getazs
-            Method: get
+      Layers:
+        - 'arn:aws:lambda:us-east-1:232083808386:layer:requests:2'
+      Role: 'arn:aws:iam::232083808386:role/service-role/indexPhotosRole'
+#      Events:
+#        getAZsAPI:
+#          Type: Api
+#          Properties:
+#            Path: /getazs
+#            Method: get
       Environment:
         Variables:
           REGION: us-east-1
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-9c472db5
+        SubnetIds:
+          - subnet-ec51438b
+
+  SearchPhotosLambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: search-photos-cd
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./LambdaCode/LF2/lambda_function.py
+      Description: 'Search photos function'
+      MemorySize: 128
+      Timeout: 30
+      Layers:
+        - 'arn:aws:lambda:us-east-1:232083808386:layer:elasticsearch:2'
+      Role: 'arn:aws:iam::232083808386:role/service-role/Search-photos-role'
+      #      Events:
+      #        getAZsAPI:
+      #          Type: Api
+      #          Properties:
+      #            Path: /getazs
+      #            Method: get
+      Environment:
+        Variables:
+          REGION: us-east-1
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-9c472db5
+        SubnetIds:
+          - subnet-ec51438b
+
+
+
