@@ -127,7 +127,7 @@ Resources:
               "s3:GetBucketLocation"
             ],
 #            "Resource": "arn:aws:s3:::ass3-b2-cd"
-            "Resource": !GetAtt PhotoBucketS3.Arn
+            "Resource": !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
           },
           {
             "Sid": "AWSRekognitionS3GetBucket20191011",
@@ -143,7 +143,8 @@ Resources:
             ],
 #            "Resource": "arn:aws:s3:::ass3-b2/*"
 #            "Resource": "arn:aws:s3:::ass3-b2-cd/*"
-            "Resource": !GetAtt PhotoBucketS3.Arn
+#            "Resource": !GetAtt PhotoBucketS3.Arn
+            "Resource": !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
           },
           {
             "Sid": "PublicReadGetObject",
@@ -151,7 +152,8 @@ Resources:
             "Principal": "*",
             "Action": "s3:GetObject",
 #            "Resource": "arn:aws:s3:::ass3-b2-cd/*"
-            "Resource": !GetAtt PhotoBucketS3.Arn
+#            "Resource": !GetAtt PhotoBucketS3.Arn
+            "Resource": !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
           }
           ]
         }
