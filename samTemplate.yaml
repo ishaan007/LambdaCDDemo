@@ -108,9 +108,10 @@ Resources:
         IndexDocument: 'index.html'
 #
   PhotoBucketS3Policy:
-    Type: AWS::S3::BucketPolicy
+    Type: 'AWS::S3::BucketPolicy'
     Properties:
-      Bucket: ass3-b2-cd
+      Bucket:
+        Ref: PhotoBucketS3
       PolicyDocument:
         {
           "Version": "2012-10-17",
