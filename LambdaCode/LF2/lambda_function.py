@@ -4,7 +4,7 @@ from elasticsearch import Elasticsearch
 import certifi
 
 # TODO: update
-host = 'https://vpc-photos-test-kxphmar6eg4ezxngicoz5kibqm.us-east-1.es.amazonaws.com'  # the Amazon ES domain, including https://
+host = 'https://vpc-photos-cd-v3m6vhbcqpleevatzh2smo4wlm.us-east-1.es.amazonaws.com'  # the Amazon ES domain, including https://
 index = 'photos-cd'
 
 def disambiguate_query(query, userId):

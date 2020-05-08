@@ -13,7 +13,7 @@ awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, servi
 
 
 # TODO: update
-host = 'https://vpc-photos-test-kxphmar6eg4ezxngicoz5kibqm.us-east-1.es.amazonaws.com'  # the Amazon ES domain, including https://
+host = 'https://vpc-photos-cd-v3m6vhbcqpleevatzh2smo4wlm.us-east-1.es.amazonaws.com'  # the Amazon ES domain, including https://
 index = 'photos-cd'
 type = 'lambda-type'
 url = host + '/' + index + '/' + type
