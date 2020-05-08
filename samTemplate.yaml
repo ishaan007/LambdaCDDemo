@@ -68,7 +68,7 @@ Resources:
 #          InstanceCount: 1
 #          ZoneAwarenessEnabled: false
 #          InstanceType: 'r5.large.elasticsearch'
-      VpcConfig:
+      VPCOptions:
         SecurityGroupIds:
           - sg-9c472db5
         SubnetIds:
