@@ -63,11 +63,15 @@ Resources:
     Properties:
       DomainName: photos-cd
       ElasticsearchVersion: '7.4'
-#        ElasticsearchClusterConfig:
-#          DedicatedMasterEnabled: false
-#          InstanceCount: 1
-#          ZoneAwarenessEnabled: false
-#          InstanceType: 'r5.large.elasticsearch'
+      ElasticsearchClusterConfig:
+        DedicatedMasterEnabled: false
+        InstanceCount: 1
+        ZoneAwarenessEnabled: false
+        InstanceType: 'r5.large.elasticsearch'
+      EBSOptions:
+        EBSEnabled: true
+        VolumeSize: 10
+        VolumeType: 'gp2'
       VPCOptions:
         SecurityGroupIds:
           - sg-9c472db5
