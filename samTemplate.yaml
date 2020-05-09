@@ -141,18 +141,18 @@ Resources:
 #            Resource: 'arn:aws:s3:::ass3-b2-cd/*'
             Resource: !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
 
-  PhotoAlbumAPI:
+  AIPhotoAlbumAPI:
     Type: 'AWS::ApiGateway::RestApi'
     Properties:
       Description: 'API for assignment 3 for Cloud Computing and Big Data course'
       EndpointConfiguration:
         Types: 
           - REGIONAL
-      Name: 'Photo Album API'
+      Name: 'AIPhotoAlbumAPI'
       Body:
         swagger: '2.0'
         info:
-          title: AI Photo Search
+          title: AIPhotoAlbumAPI
           description: 'AI Photo Search application, built during the Cloud and Big Data course at Columbia University.'
           version: 1.0.0
         schemes:
