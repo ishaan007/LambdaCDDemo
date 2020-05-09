@@ -148,89 +148,95 @@ Resources:
       EndpointConfiguration:
         Types: 
           - REGIONAL
-      Name: 'PhotoAlbumAPI'
+      Name: 'Photo Album API'
       Body:
-        swagger: "2.0"
+        swagger: '2.0'
         info:
-          description: "AI Photo Search application, built during the Cloud and Big Data course at Columbia University."
-          version: "1.0.0"
-          title: "PhotoAlbumAPI"
-        basePath: "/beta"
+          title: AI Photo Search
+          description: 'AI Photo Search application, built during the Cloud and Big Data course at Columbia University.'
+          version: 1.0.0
         schemes:
-        - "https"
+          - https
+        basePath: /beta
+        produces:
+          - application/json
         paths:
           /search:
             get:
-              operationId: "searchPhotos"
-              consumes:
-              - "application/json"
-              produces:
-              - "application/json"
+              summary: photo search method
+              description: |
+                This API takes in a search query as a query parameter and returns zero or more photos that match the search query.
+              operationId: searchPhotos
               parameters:
-              - name: "q"
-                in: "query"
-                type: "string"
+                - in: query
+                  name: q
+                  schema:
+                    type: string
+                  description: the string to be searched
+              consumes:
+                - application/json
+              produces:
+                - application/json
               responses:
                 '200':
-                  description: "200 response"
+                  description: '200 response'
                   schema:
-                    $ref: "#/definitions/SearchResponse"
+                    $ref: '#/definitions/SearchResponse'
                   headers:
                     Access-Control-Allow-Origin:
-                      type: "string"
-                '500':
-                  description: "500 response"
-                  schema:
-                    $ref: "#/definitions/Error"
+                      type: string
                 '403':
-                  description: "403 response"
+                  description: '403 response'
                   schema:
-                    $ref: "#/definitions/Error"
+                    $ref: '#/definitions/Error'
+                '500':
+                  description: '500 response'
+                  schema:
+                    $ref: '#/definitions/Error'
             options:
               consumes:
-              - "application/json"
+                - application/json
               produces:
-              - "application/json"
+                - application/json
               responses:
                 '200':
-                  description: "200 response"
+                  description: '200 response'
                   headers:
                     Access-Control-Allow-Origin:
-                      type: "string"
+                      type: string
                     Access-Control-Allow-Methods:
-                      type: "string"
+                      type: string
                     Access-Control-Allow-Headers:
-                      type: "string"
-                '500':
-                  description: "500 response"
+                      type: string
                 '403':
-                  description: "403 response"
+                  description: '403 response'
+                '500':
+                  description: '500 response'
         definitions:
-          Error:
-            type: "object"
-            properties:
-              code:
-                type: "integer"
-                format: "int32"
-              message:
-                type: "string"
-          Photo:
-            type: "object"
-            properties:
-              url:
-                type: "string"
-              labels:
-                type: "array"
-                items:
-                  type: "string"
           SearchResponse:
-            type: "object"
+            type: object
             properties:
               results:
-                type: "array"
+                type: array
                 items:
-                  $ref: "#/definitions/Photo"
-
+                  $ref: '#/definitions/Photo'
+          Photo:
+            type: object
+            properties:
+              url:
+                type: string
+              labels:
+                type: array
+                items:
+                  type: string
+          Error:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
 
 
 #        {
