@@ -113,51 +113,78 @@ Resources:
       Bucket:
         Ref: PhotoBucketS3
       PolicyDocument:
-        {
-          "Version": "2012-10-17",
-          "Statement": [
-          {
-            "Sid": "AWSRekognitionS3AclBucketRead20191011",
-            "Effect": "Allow",
-            "Principal": {
-              "Service": "rekognition.amazonaws.com"
-            },
-            "Action": [
-              "s3:GetBucketAcl",
-              "s3:GetBucketLocation"
-            ],
-#            "Resource": "arn:aws:s3:::ass3-b2-cd"
-#            "Resource": !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
-            "Resource": "arn:aws:s3:::ass3-b2-cd/*"
-          },
-          {
-            "Sid": "AWSRekognitionS3GetBucket20191011",
-            "Effect": "Allow",
-            "Principal": {
-              "Service": "rekognition.amazonaws.com"
-            },
-            "Action": [
-              "s3:GetObject",
-              "s3:GetObjectAcl",
-              "s3:GetObjectVersion",
-              "s3:GetObjectTagging"
-            ],
-#            "Resource": "arn:aws:s3:::ass3-b2/*"
-            "Resource": "arn:aws:s3:::ass3-b2-cd/*"
-#            "Resource": !GetAtt PhotoBucketS3.Arn
-#            "Resource": !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
-          },
-          {
-            "Sid": "PublicReadGetObject",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::ass3-b2-cd/*"
-#            "Resource": !GetAtt PhotoBucketS3.Arn
-#            "Resource": !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
-          }
-          ]
-        }
+        Version: 2012-10-17
+        Statement:
+          - Sid: AWSRekognitionS3AclBucketRead20191011
+            Effect: Allow
+            Principal:
+              Service: rekognition.amazonaws.com
+            Action:
+              - 's3:GetBucketAcl'
+              - 's3:GetBucketLocation'
+            Resource: 'arn:aws:s3:::ass3-b2-cd/*'
+          - Sid: AWSRekognitionS3GetBucket20191011
+            Effect: Allow
+            Principal:
+              Service: rekognition.amazonaws.com
+            Action:
+              - 's3:GetObject'
+              - 's3:GetObjectAcl'
+              - 's3:GetObjectVersion'
+              - 's3:GetObjectTagging'
+            Resource: 'arn:aws:s3:::ass3-b2-cd/*'
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: 'arn:aws:s3:::ass3-b2-cd/*'
+
+
+#        {
+#          "Version": "2012-10-17",
+#          "Statement": [
+#          {
+#            "Sid": "AWSRekognitionS3AclBucketRead20191011",
+#            "Effect": "Allow",
+#            "Principal": {
+#              "Service": "rekognition.amazonaws.com"
+#            },
+#            "Action": [
+#              "s3:GetBucketAcl",
+#              "s3:GetBucketLocation"
+#            ],
+##            "Resource": "arn:aws:s3:::ass3-b2-cd"
+##            "Resource": !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
+#            "Resource": "arn:aws:s3:::ass3-b2-cd/*"
+#          },
+#          {
+#            "Sid": "AWSRekognitionS3GetBucket20191011",
+#            "Effect": "Allow",
+#            "Principal": {
+#              "Service": "rekognition.amazonaws.com"
+#            },
+#            "Action": [
+#              "s3:GetObject",
+#              "s3:GetObjectAcl",
+#              "s3:GetObjectVersion",
+#              "s3:GetObjectTagging"
+#            ],
+##            "Resource": "arn:aws:s3:::ass3-b2/*"
+#            "Resource": "arn:aws:s3:::ass3-b2-cd/*"
+##            "Resource": !GetAtt PhotoBucketS3.Arn
+##            "Resource": !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
+#          },
+#          {
+#            "Sid": "PublicReadGetObject",
+#            "Effect": "Allow",
+#            "Principal": "*",
+#            "Action": "s3:GetObject",
+#            "Resource": "arn:aws:s3:::ass3-b2-cd/*"
+##            "Resource": !GetAtt PhotoBucketS3.Arn
+##            "Resource": !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
+#          }
+#          ]
+#        }
 
   # link to lambda on put
   # public access DONE
