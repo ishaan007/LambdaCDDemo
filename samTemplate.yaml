@@ -153,10 +153,10 @@ Resources:
       Role: 'arn:aws:iam::232083808386:role/service-role/Search-photos-role'
       Events:
         AIPhotoAlbumAPI:
-        Type: Api
-        Properties:
-          Path: /search
-          Method: get
+          Type: Api
+          Properties:
+            Path: /search
+            Method: get
       Environment:
         Variables:
           REGION: us-east-1
