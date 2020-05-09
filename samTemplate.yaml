@@ -152,10 +152,9 @@ Resources:
       Body:
         swagger: "2.0"
         info:
-          description: "AI Photo Search application, built during the Cloud and Big Data course\
-            \ at Columbia University."
+          description: "AI Photo Search application, built during the Cloud and Big Data course at Columbia University."
           version: "1.0.0"
-          title: "AI Photo Search"
+          title: "PhotoAlbumAPI"
         host: "ioepn8ggz8.execute-api.us-east-1.amazonaws.com"
         basePath: "/beta"
         schemes:
@@ -189,48 +188,6 @@ Resources:
                   description: "403 response"
                   schema:
                     $ref: "#/definitions/Error"
-            options:
-              consumes:
-              - "application/json"
-              produces:
-              - "application/json"
-              responses:
-                200:
-                  description: "200 response"
-                  headers:
-                    Access-Control-Allow-Origin:
-                      type: "string"
-                    Access-Control-Allow-Methods:
-                      type: "string"
-                    Access-Control-Allow-Headers:
-                      type: "string"
-                500:
-                  description: "500 response"
-                403:
-                  description: "403 response"
-          /{folder}/{item}:
-            put:
-              produces:
-              - "application/json"
-              parameters:
-              - name: "item"
-                in: "path"
-                required: true
-                type: "string"
-              - name: "folder"
-                in: "path"
-                required: true
-                type: "string"
-              responses:
-                200:
-                  description: "200 response"
-                  headers:
-                    Access-Control-Allow-Origin:
-                      type: "string"
-                500:
-                  description: "500 response"
-                403:
-                  description: "403 response"
             options:
               consumes:
               - "application/json"
