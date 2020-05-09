@@ -141,7 +141,7 @@ Resources:
 #            Resource: 'arn:aws:s3:::ass3-b2-cd/*'
             Resource: !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
 
-  AIPhotoAlbumAPI:
+  PhotoAlbumAPI:
     Type: 'AWS::ApiGateway::RestApi'
     Properties:
       Description: 'API for assignment 3 for Cloud Computing and Big Data course'
