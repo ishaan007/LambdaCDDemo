@@ -146,7 +146,7 @@ Resources:
     Properties:
       Description: 'API for assignment 3 for Cloud Computing and Big Data course'
       EndpointConfiguration:
-        Type: ['REGIONAL']
+        Type: 'REGIONAL'
       Name: 'Photo Album API'
       Body:
         swagger: '2.0'
