@@ -110,8 +110,7 @@ Resources:
   PhotoBucketS3Policy:
     Type: 'AWS::S3::BucketPolicy'
     Properties:
-      Bucket:
-        Ref: PhotoBucketS3
+      Bucket: !Ref PhotoBucketS3
       PolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -122,7 +121,7 @@ Resources:
             Action:
               - 's3:GetBucketAcl'
               - 's3:GetBucketLocation'
-            Resource: 'arn:aws:s3:::ass3-b2-cd/*'
+            Resource: 'arn:aws:s3:::ass3-b2-cd'
           - Sid: AWSRekognitionS3GetBucket20191011
             Effect: Allow
             Principal:
