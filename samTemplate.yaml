@@ -146,7 +146,7 @@ Resources:
     Properties:
       Description: 'API for assignment 3 for Cloud Computing and Big Data course'
       EndpointConfiguration:
-        Type: 'REGIONAL'
+        Type: ['REGIONAL']
       Name: 'Photo Album API'
       Body:
         swagger: '2.0'
@@ -163,8 +163,7 @@ Resources:
           /search:
             get:
               summary: photo search method
-              description: |
-                This API takes in a search query as a query parameter and returns zero or more photos that match the search query.
+              description: This API takes in a search query as a query parameter and returns zero or more photos that match the search query.
               operationId: searchPhotos
               parameters:
                 - in: query
@@ -190,8 +189,7 @@ Resources:
           /upload:
             put:
               summary: photo upload method
-              description: |
-                This API takes in the multi-part body sent to it (ex. a photo) and uploads it to an S3 bucket.
+              description: This API takes in the multi-part body sent to it (ex. a photo) and uploads it to an S3 bucket.
               operationId: uploadPhoto
               consumes:
                 - image/png
