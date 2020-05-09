@@ -150,94 +150,132 @@ Resources:
           - REGIONAL
       Name: 'Photo Album API'
       Body:
-        swagger: '2.0'
+        swagger: "2.0"
         info:
-          title: AI Photo Search
-          description: 'AI Photo Search application, built during the Cloud and Big Data course at Columbia University.'
-          version: 1.0.0
+          description: "AI Photo Search application, built during the Cloud and Big Data course\
+            \ at Columbia University."
+          version: "1.0.0"
+          title: "AI Photo Search"
+        host: "ioepn8ggz8.execute-api.us-east-1.amazonaws.com"
+        basePath: "/beta"
         schemes:
-          - https
-        basePath: /v1
-        produces:
-          - application/json
+        - "https"
         paths:
           /search:
             get:
-              summary: photo search method
-              description: |
-                This API takes in a search query as a query parameter and returns zero or more photos that match the search query.
-              operationId: searchPhotos
-              parameters:
-                - in: query
-                  name: q
-                  schema:
-                    type: string
-                  description: the string to be searched
-              produces:
-                - application/json
-              responses:
-                '200':
-                  description: search results
-                  schema:
-                    $ref: '#/definitions/SearchResponse'
-                '403':
-                  description: Unauthorized
-                  schema:
-                    $ref: '#/definitions/Error'
-                '500':
-                  description: Unexpected error
-                  schema:
-                    $ref: '#/definitions/Error'
-          /upload:
-            put:
-              summary: photo upload method
-              description: |
-                This API takes in the multi-part body sent to it (ex. a photo) and uploads it to an S3 bucket.
-              operationId: uploadPhoto
+              operationId: "searchPhotos"
               consumes:
-                - image/png
-                - image/jpg
-                - image/jpeg
+              - "application/json"
               produces:
-                - application/json
+              - "application/json"
+              parameters:
+              - name: "q"
+                in: "query"
+                required: false
+                type: "string"
               responses:
-                '200':
-                  description: S3 PUT operation response
+                200:
+                  description: "200 response"
                   schema:
-                    type: object
-                '403':
-                  description: Unauthorized
+                    $ref: "#/definitions/SearchResponse"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                500:
+                  description: "500 response"
                   schema:
-                    $ref: '#/definitions/Error'
-                '500':
-                  description: Unexpected error
+                    $ref: "#/definitions/Error"
+                403:
+                  description: "403 response"
                   schema:
-                    $ref: '#/definitions/Error'
+                    $ref: "#/definitions/Error"
+            options:
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              responses:
+                200:
+                  description: "200 response"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Headers:
+                      type: "string"
+                500:
+                  description: "500 response"
+                403:
+                  description: "403 response"
+          /{folder}/{item}:
+            put:
+              produces:
+              - "application/json"
+              parameters:
+              - name: "item"
+                in: "path"
+                required: true
+                type: "string"
+              - name: "folder"
+                in: "path"
+                required: true
+                type: "string"
+              responses:
+                200:
+                  description: "200 response"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                500:
+                  description: "500 response"
+                403:
+                  description: "403 response"
+            options:
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              responses:
+                200:
+                  description: "200 response"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Headers:
+                      type: "string"
+                500:
+                  description: "500 response"
+                403:
+                  description: "403 response"
         definitions:
-          SearchResponse:
-            type: object
-            properties:
-              results:
-                type: array
-                items:
-                  $ref: '#/definitions/Photo'
-          Photo:
-            type: object
-            properties:
-              url:
-                type: string
-              labels:
-                type: array
-                items:
-                  type: string
           Error:
-            type: object
+            type: "object"
             properties:
               code:
-                type: integer
-                format: int32
+                type: "integer"
+                format: "int32"
               message:
-                type: string
+                type: "string"
+          Photo:
+            type: "object"
+            properties:
+              url:
+                type: "string"
+              labels:
+                type: "array"
+                items:
+                  type: "string"
+          SearchResponse:
+            type: "object"
+            properties:
+              results:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Photo"
+
 
 
 #        {
