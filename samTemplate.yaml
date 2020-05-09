@@ -169,7 +169,6 @@ Resources:
               parameters:
               - name: "q"
                 in: "query"
-                required: false
                 type: "string"
               responses:
                 '200':
