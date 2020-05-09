@@ -148,14 +148,13 @@ Resources:
       EndpointConfiguration:
         Types: 
           - REGIONAL
-      Name: 'Photo Album API'
+      Name: 'PhotoAlbumAPI'
       Body:
         swagger: "2.0"
         info:
           description: "AI Photo Search application, built during the Cloud and Big Data course at Columbia University."
           version: "1.0.0"
           title: "PhotoAlbumAPI"
-        host: "ioepn8ggz8.execute-api.us-east-1.amazonaws.com"
         basePath: "/beta"
         schemes:
         - "https"
@@ -170,6 +169,7 @@ Resources:
               parameters:
               - name: "q"
                 in: "query"
+                required: false
                 type: "string"
               responses:
                 '200':
