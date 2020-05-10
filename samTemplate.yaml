@@ -220,6 +220,7 @@ Resources:
   ConfigLambdaPermission:
     Type: "AWS::Lambda::Permission"
     DependsOn:
+      - APIAss3
       - SearchPhotosLambda
     Properties:
       Action: lambda:InvokeFunction
