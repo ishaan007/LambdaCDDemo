@@ -18,7 +18,7 @@ Resources:
       PathPart: 'search'
       RestApiId: !Ref ApiGatewayRestApi
 
-  ApiGatewayMethod:
+  ApiGatewayGetMethod:
     Type: AWS::ApiGateway::Method
     Properties:
       ApiKeyRequired: false
@@ -27,9 +27,11 @@ Resources:
       Integration:
         ConnectionType: INTERNET
         IntegrationHttpMethod: POST
+        # IntegrationResponses:
+        #   - 
         PassthroughBehavior: WHEN_NO_TEMPLATES
         RequestTemplates:
-          'application/json': "{\n\"query\": \"$input.params(\"q\")\"\n}"
+          'application/json': "{\n\"query\": \"$input.params('q')\"\n}"
         Type: AWS
         Uri: !Sub 'arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${SearchPhotosLambda.Arn}/invocations'
       MethodResponses:
@@ -44,11 +46,39 @@ Resources:
         - StatusCode: '500'
           # ResponseModels:
           #   'application/json': !Ref ErrorModel
-      OperationName: 'search'
       RequestParameters:
         'method.request.querystring.q': false
       ResourceId: !Ref ApiGatewayResource
       RestApiId: !Ref ApiGatewayRestApi
+
+ApiGatewayOptionsMethod:
+  Type: AWS::ApiGateway::Method
+  Properties:
+    ApiKeyRequired: false
+    AuthorizationType: NONE
+    HttpMethod: OPTIONS
+    Integration:
+      ConnectionType: INTERNET
+      PassthroughBehavior: WHEN_NO_TEMPLATES
+      RequestTemplates:
+        'application/json': "{\n\"statusCode\": 200\n}"
+      Type: MOCK
+    MethodResponses:
+      - StatusCode: '200'
+        ResponseParameters: 
+          'method.response.header.Access-Control-Allow-Headers': false
+          'method.response.header.Access-Control-Allow-Methods': false
+          'method.response.header.Access-Control-Allow-Origin': false
+        # ResponseModels:
+        #   'application/json': !Ref SearchResponseModel
+      - StatusCode: '403'
+        # ResponseModels:
+        #   'application/json': !Ref ErrorModel
+      - StatusCode: '500'
+        # ResponseModels:
+        #   'application/json': !Ref ErrorModel
+    ResourceId: !Ref ApiGatewayResource
+    RestApiId: !Ref ApiGatewayRestApi
 
   # SearchResponseModel:
   #   Type: AWS::ApiGateway::Model
@@ -75,7 +105,7 @@ Resources:
 
   ApiGatewayDeployment:
     Type: AWS::ApiGateway::Deployment
-    DependsOn: ApiGatewayMethod
+    # DependsOn: ApiGatewayMethod
     Properties:
       Description: Lambda API Deployment
       RestApiId: !Ref ApiGatewayRestApi
@@ -132,12 +162,12 @@ Resources:
       Layers:
         - 'arn:aws:lambda:us-east-1:232083808386:layer:elasticsearch:2'
       Role: 'arn:aws:iam::232083808386:role/service-role/Search-photos-role'
-      # Events:
-      #   AIPhotoAlbumAPI:
-      #     Type: Api
-      #     Properties:
-      #       Path: /search
-      #       Method: get
+      Events:
+        AIPhotoAlbumAPI:
+          Type: Api
+          Properties:
+            Path: /search
+            Method: get
       Environment:
         Variables:
           REGION: us-east-1
