@@ -11,14 +11,14 @@ Resources:
           - REGIONAL
       Name: 'APIPhotoAlbum'
 
-  ApiGatewayResource:
+  APIPhotoAlbumResource:
     Type: AWS::ApiGateway::Resource
     Properties:
       ParentId: !GetAtt APIPhotoAlbum.RootResourceId
       PathPart: 'search'
       RestApiId: !Ref APIPhotoAlbum
 
-  ApiGatewayGetMethod:
+  APIPhotoAlbumGetMethod:
     Type: AWS::ApiGateway::Method
     Properties:
       ApiKeyRequired: false
@@ -48,10 +48,10 @@ Resources:
           #   'application/json': !Ref ErrorModel
       RequestParameters:
         'method.request.querystring.q': false
-      ResourceId: !Ref ApiGatewayResource
+      ResourceId: !Ref APIPhotoAlbumResource
       RestApiId: !Ref APIPhotoAlbum
 
-  ApiGatewayOptionsMethod:
+  APIPhotoAlbumOptionsMethod:
     Type: AWS::ApiGateway::Method
     Properties:
       ApiKeyRequired: false
@@ -77,7 +77,7 @@ Resources:
         - StatusCode: '500'
           # ResponseModels:
           #   'application/json': !Ref ErrorModel
-      ResourceId: !Ref ApiGatewayResource
+      ResourceId: !Ref APIPhotoAlbumResource
       RestApiId: !Ref APIPhotoAlbum
 
   # SearchResponseModel:
@@ -96,14 +96,14 @@ Resources:
   #     RestApiId: !Ref APIPhotoAlbum
   #     Schema: {}
 
-  ApiGatewayStage:
+  APIPhotoAlbumStage:
     Type: AWS::ApiGateway::Stage
     Properties:
-      DeploymentId: !Ref ApiGatewayDeployment
+      DeploymentId: !Ref APIPhotoAlbumDeployment
       RestApiId: !Ref APIPhotoAlbum
       StageName: 'beta'
 
-  ApiGatewayDeployment:
+  APIPhotoAlbumDeployment:
     Type: AWS::ApiGateway::Deployment
     # DependsOn: ApiGatewayMethod
     Properties:
