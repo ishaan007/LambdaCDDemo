@@ -2,102 +2,85 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: CD Demo Lambda
 Resources:
-  AIPhotoAlbumAPI:
-    Type: 'AWS::ApiGateway::RestApi'
+  ApiGatewayRestApi:
+  Type: AWS::ApiGateway::RestApi
+  Properties:
+    Description: 'API for assignment 3 for Cloud Computing and Big Data course'
+    EndpointConfiguration:
+      Types: 
+        - REGIONAL
+    Name: 'AIPhotoAlbumAPI'
+
+  ApiGatewayResource:
+    Type: AWS::ApiGateway::Resource
     Properties:
-      Description: 'API for assignment 3 for Cloud Computing and Big Data course'
-      EndpointConfiguration:
-        Types: 
-          - REGIONAL
-      Name: 'AIPhotoAlbumAPI'
-      Body:
-        swagger: '2.0'
-        info:
-          title: AIPhotoAlbumAPI
-          description: 'AI Photo Search application, built during the Cloud and Big Data course at Columbia University.'
-          version: 1.0.0
-        schemes:
-          - https
-        basePath: /beta
-        produces:
-          - application/json
-        paths:
-          /search:
-            get:
-              summary: photo search method
-              description: |
-                This API takes in a search query as a query parameter and returns zero or more photos that match the search query.
-              operationId: searchPhotos
-              parameters:
-                - in: query
-                  name: q
-                  schema:
-                    type: string
-                  description: the string to be searched
-              consumes:
-                - application/json
-              produces:
-                - application/json
-              responses:
-                '200':
-                  description: '200 response'
-                  schema:
-                    $ref: '#/definitions/SearchResponse'
-                  headers:
-                    Access-Control-Allow-Origin:
-                      type: string
-                '403':
-                  description: '403 response'
-                  schema:
-                    $ref: '#/definitions/Error'
-                '500':
-                  description: '500 response'
-                  schema:
-                    $ref: '#/definitions/Error'
-            options:
-              consumes:
-                - application/json
-              produces:
-                - application/json
-              responses:
-                '200':
-                  description: '200 response'
-                  headers:
-                    Access-Control-Allow-Origin:
-                      type: string
-                    Access-Control-Allow-Methods:
-                      type: string
-                    Access-Control-Allow-Headers:
-                      type: string
-                '403':
-                  description: '403 response'
-                '500':
-                  description: '500 response'
-        definitions:
-          SearchResponse:
-            type: object
-            properties:
-              results:
-                type: array
-                items:
-                  $ref: '#/definitions/Photo'
-          Photo:
-            type: object
-            properties:
-              url:
-                type: string
-              labels:
-                type: array
-                items:
-                  type: string
-          Error:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
+      ParentId: !GetAtt ApiGatewayRestApi.RootResourceId
+      PathPart: 'search'
+      RestApiId: !Ref ApiGatewayRestApi
+
+  ApiGatewayMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      HttpMethod: GET
+      Integration:
+        ConnectionType: INTERNET
+        IntegrationHttpMethod: POST
+        PassthroughBehavior: WHEN_NO_TEMPLATES
+        RequestTemplates:
+          'application/json': "{\n\"query\": \"$input.params(\"q\")\"\n}"
+        Type: AWS
+        Uri: !Sub 'arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${SearchPhotosLambda.Arn}/invocations'
+      MethodResponses:
+        - StatusCode: '200'
+          ResponseParameters: 
+            'method.response.header.Access-Control-Allow-Origin': false
+          ResponseModels:
+            'application/json': !Ref SearchResponseModel
+        - StatusCode: '403'
+          ResponseModels:
+            'application/json': !Ref ErrorModel
+        - StatusCode: '500'
+          ResponseModels:
+            'application/json': !Ref ErrorModel
+      OperationName: 'search'
+      RequestParameters:
+        'method.request.querystring.q': false
+      ResourceId: !Ref ApiGatewayResource
+      RestApiId: !Ref ApiGatewayRestApi
+
+  SearchResponseModel:
+    Type: AWS::ApiGateway::Model
+    Properties:
+      Name: 'SearchResponse'
+      ContentType: 'application/json'
+      RestApiId: !Ref ApiGatewayRestApi
+      Schema: >
+        {"type" : "object","properties" : {"results" : {"type" : "array","items" : {"$ref":"https://apigateway.amazonaws.com/restapis/ioepn8ggz8/models/Photo"}}}}
+
+  ErrorModel:
+    Type: AWS::ApiGateway::Model
+    Properties:
+      Name: 'Error'
+      ContentType: 'application/json'
+      RestApiId: !Ref ApiGatewayRestApi
+      Schema: >
+        {"type" : "object","properties" : {"code" : {"type" : "integer","format" : "int32"},"message" : {"type" : "string"}}}
+
+  ApiGatewayStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      DeploymentId: !Ref ApiGatewayDeployment
+      RestApiId: !Ref ApiGatewayRestApi
+      StageName: 'beta'
+
+  ApiGatewayDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn: ApiGatewayMethod
+    Properties:
+      Description: Lambda API Deployment
+      RestApiId: !Ref ApiGatewayRestApi
 
   IndexPhotosLambda:
     Type: 'AWS::Serverless::Function'
