@@ -31,8 +31,8 @@ Resources:
           - StatusCode: '200'
             ResponseParameters:
               'Access-Control-Allow-Origin': "'*'"
-              ResponseTemplates:
-                'application/json': ''
+            ResponseTemplates:
+              'application/json': ''
         PassthroughBehavior: WHEN_NO_TEMPLATES
         RequestTemplates:
           'application/json': "{\n\"query\": \"$input.params('q')\"\n}"
@@ -69,8 +69,8 @@ Resources:
               'Access-Control-Allow-Origin': "'*'"
               'Access-Control-Allow-Headers': "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
               'Access-Control-Allow-Methods': "'GET,OPTIONS'"
-              ResponseTemplates:
-                'application/json': ''
+            ResponseTemplates:
+              'application/json': ''
         PassthroughBehavior: WHEN_NO_TEMPLATES
         RequestTemplates:
           'application/json': "{\n\"statusCode\": 200\n}"
