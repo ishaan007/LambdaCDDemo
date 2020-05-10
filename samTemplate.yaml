@@ -36,35 +36,35 @@ Resources:
         - StatusCode: '200'
           ResponseParameters: 
             'method.response.header.Access-Control-Allow-Origin': false
-          ResponseModels:
-            'application/json': !Ref SearchResponseModel
+          # ResponseModels:
+          #   'application/json': !Ref SearchResponseModel
         - StatusCode: '403'
-          ResponseModels:
-            'application/json': !Ref ErrorModel
+          # ResponseModels:
+          #   'application/json': !Ref ErrorModel
         - StatusCode: '500'
-          ResponseModels:
-            'application/json': !Ref ErrorModel
+          # ResponseModels:
+          #   'application/json': !Ref ErrorModel
       OperationName: 'search'
       RequestParameters:
         'method.request.querystring.q': false
       ResourceId: !Ref ApiGatewayResource
       RestApiId: !Ref ApiGatewayRestApi
 
-  SearchResponseModel:
-    Type: AWS::ApiGateway::Model
-    Properties:
-      Name: 'SearchResponse'
-      ContentType: 'application/json'
-      RestApiId: !Ref ApiGatewayRestApi
-      Schema: {}
+  # SearchResponseModel:
+  #   Type: AWS::ApiGateway::Model
+  #   Properties:
+  #     Name: 'SearchResponse'
+  #     ContentType: 'application/json'
+  #     RestApiId: !Ref ApiGatewayRestApi
+  #     Schema: {}
 
-  ErrorModel:
-    Type: AWS::ApiGateway::Model
-    Properties:
-      Name: 'Error'
-      ContentType: 'application/json'
-      RestApiId: !Ref ApiGatewayRestApi
-      Schema: {}
+  # ErrorModel:
+  #   Type: AWS::ApiGateway::Model
+  #   Properties:
+  #     Name: 'Error'
+  #     ContentType: 'application/json'
+  #     RestApiId: !Ref ApiGatewayRestApi
+  #     Schema: {}
 
   ApiGatewayStage:
     Type: AWS::ApiGateway::Stage
