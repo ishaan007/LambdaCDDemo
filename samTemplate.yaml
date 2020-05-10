@@ -105,7 +105,7 @@ Resources:
 
   APIPhotoAlbumDeployment:
     Type: AWS::ApiGateway::Deployment
-    # DependsOn: ApiGatewayMethod
+    DependsOn: APIPhotoAlbumGetMethod
     Properties:
       Description: Lambda API Deployment
       RestApiId: !Ref APIPhotoAlbum
