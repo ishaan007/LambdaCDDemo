@@ -51,34 +51,34 @@ Resources:
       ResourceId: !Ref ApiGatewayResource
       RestApiId: !Ref ApiGatewayRestApi
 
-ApiGatewayOptionsMethod:
-  Type: AWS::ApiGateway::Method
-  Properties:
-    ApiKeyRequired: false
-    AuthorizationType: NONE
-    HttpMethod: OPTIONS
-    Integration:
-      ConnectionType: INTERNET
-      PassthroughBehavior: WHEN_NO_TEMPLATES
-      RequestTemplates:
-        'application/json': "{\n\"statusCode\": 200\n}"
-      Type: MOCK
-    MethodResponses:
-      - StatusCode: '200'
-        ResponseParameters: 
-          'method.response.header.Access-Control-Allow-Headers': false
-          'method.response.header.Access-Control-Allow-Methods': false
-          'method.response.header.Access-Control-Allow-Origin': false
-        # ResponseModels:
-        #   'application/json': !Ref SearchResponseModel
-      - StatusCode: '403'
-        # ResponseModels:
-        #   'application/json': !Ref ErrorModel
-      - StatusCode: '500'
-        # ResponseModels:
-        #   'application/json': !Ref ErrorModel
-    ResourceId: !Ref ApiGatewayResource
-    RestApiId: !Ref ApiGatewayRestApi
+  ApiGatewayOptionsMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      HttpMethod: OPTIONS
+      Integration:
+        ConnectionType: INTERNET
+        PassthroughBehavior: WHEN_NO_TEMPLATES
+        RequestTemplates:
+          'application/json': "{\n\"statusCode\": 200\n}"
+        Type: MOCK
+      MethodResponses:
+        - StatusCode: '200'
+          ResponseParameters: 
+            'method.response.header.Access-Control-Allow-Headers': false
+            'method.response.header.Access-Control-Allow-Methods': false
+            'method.response.header.Access-Control-Allow-Origin': false
+          # ResponseModels:
+          #   'application/json': !Ref SearchResponseModel
+        - StatusCode: '403'
+          # ResponseModels:
+          #   'application/json': !Ref ErrorModel
+        - StatusCode: '500'
+          # ResponseModels:
+          #   'application/json': !Ref ErrorModel
+      ResourceId: !Ref ApiGatewayResource
+      RestApiId: !Ref ApiGatewayRestApi
 
   # SearchResponseModel:
   #   Type: AWS::ApiGateway::Model
