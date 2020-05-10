@@ -203,7 +203,7 @@ Resources:
                       schema:
                         $ref: "#/components/schemas/Error"
               x-amazon-apigateway-integration:
-                uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${SearchPhotosLambda.Arn}/invocations"
+                uri: !Join [ "/", [ 'arn:aws:apigateway:us-east-1:lambda:path', !GetAtt SearchPhotosLambda.Arn, 'invocations']]
                 responses:
                   default:
                     statusCode: "200"
