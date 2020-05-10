@@ -2,21 +2,21 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: CD Demo Lambda
 Resources:
-  ApiGatewayRestApi:
+  APIPhotoAlbum:
     Type: AWS::ApiGateway::RestApi
     Properties:
       Description: 'API for assignment 3 for Cloud Computing and Big Data course'
       EndpointConfiguration:
         Types: 
           - REGIONAL
-      Name: 'AIPhotoAlbumAPI'
+      Name: 'APIPhotoAlbum'
 
   ApiGatewayResource:
     Type: AWS::ApiGateway::Resource
     Properties:
-      ParentId: !GetAtt ApiGatewayRestApi.RootResourceId
+      ParentId: !GetAtt APIPhotoAlbum.RootResourceId
       PathPart: 'search'
-      RestApiId: !Ref ApiGatewayRestApi
+      RestApiId: !Ref APIPhotoAlbum
 
   ApiGatewayGetMethod:
     Type: AWS::ApiGateway::Method
@@ -49,7 +49,7 @@ Resources:
       RequestParameters:
         'method.request.querystring.q': false
       ResourceId: !Ref ApiGatewayResource
-      RestApiId: !Ref ApiGatewayRestApi
+      RestApiId: !Ref APIPhotoAlbum
 
   ApiGatewayOptionsMethod:
     Type: AWS::ApiGateway::Method
@@ -78,14 +78,14 @@ Resources:
           # ResponseModels:
           #   'application/json': !Ref ErrorModel
       ResourceId: !Ref ApiGatewayResource
-      RestApiId: !Ref ApiGatewayRestApi
+      RestApiId: !Ref APIPhotoAlbum
 
   # SearchResponseModel:
   #   Type: AWS::ApiGateway::Model
   #   Properties:
   #     Name: 'SearchResponse'
   #     ContentType: 'application/json'
-  #     RestApiId: !Ref ApiGatewayRestApi
+  #     RestApiId: !Ref APIPhotoAlbum
   #     Schema: {}
 
   # ErrorModel:
@@ -93,14 +93,14 @@ Resources:
   #   Properties:
   #     Name: 'Error'
   #     ContentType: 'application/json'
-  #     RestApiId: !Ref ApiGatewayRestApi
+  #     RestApiId: !Ref APIPhotoAlbum
   #     Schema: {}
 
   ApiGatewayStage:
     Type: AWS::ApiGateway::Stage
     Properties:
       DeploymentId: !Ref ApiGatewayDeployment
-      RestApiId: !Ref ApiGatewayRestApi
+      RestApiId: !Ref APIPhotoAlbum
       StageName: 'beta'
 
   ApiGatewayDeployment:
@@ -108,7 +108,7 @@ Resources:
     # DependsOn: ApiGatewayMethod
     Properties:
       Description: Lambda API Deployment
-      RestApiId: !Ref ApiGatewayRestApi
+      RestApiId: !Ref APIPhotoAlbum
 
   IndexPhotosLambda:
     Type: 'AWS::Serverless::Function'
@@ -163,7 +163,7 @@ Resources:
         - 'arn:aws:lambda:us-east-1:232083808386:layer:elasticsearch:2'
       Role: 'arn:aws:iam::232083808386:role/service-role/Search-photos-role'
       Events:
-        AIPhotoAlbumAPI:
+        APIPhotoAlbum:
           Type: Api
           Properties:
             Path: /search
