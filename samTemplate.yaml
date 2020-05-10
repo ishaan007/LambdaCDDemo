@@ -30,7 +30,7 @@ Resources:
         IntegrationResponses:
           - StatusCode: '200'
             ResponseParameters:
-              'Access-Control-Allow-Origin': "'*'"
+              'method.response.header.Access-Control-Allow-Origin': "'*'"
             ResponseTemplates:
               'application/json': ''
         PassthroughBehavior: WHEN_NO_TEMPLATES
@@ -66,9 +66,9 @@ Resources:
         IntegrationResponses:
           - StatusCode: '200'
             ResponseParameters:
-              'Access-Control-Allow-Origin': "'*'"
-              'Access-Control-Allow-Headers': "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              'Access-Control-Allow-Methods': "'GET,OPTIONS'"
+              'method.response.header.Access-Control-Allow-Origin': "'*'"
+              'method.response.header.Access-Control-Allow-Headers': "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              'method.response.header.Access-Control-Allow-Methods': "'GET,OPTIONS'"
             ResponseTemplates:
               'application/json': ''
         PassthroughBehavior: WHEN_NO_TEMPLATES
