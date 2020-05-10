@@ -24,11 +24,11 @@ Resources:
       Environment:
         Variables:
           REGION: us-east-1
-#      VpcConfig:
-#        SecurityGroupIds:
-#          - sg-9c472db5
-#        SubnetIds:
-#          - subnet-ec51438b
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-9c472db5
+        SubnetIds:
+          - subnet-ec51438b
 
   IndexPhotosLambdaS3Permission:
     Type: AWS::Lambda::Permission
@@ -63,11 +63,11 @@ Resources:
       Environment:
         Variables:
           REGION: us-east-1
-#      VpcConfig:
-#        SecurityGroupIds:
-#          - sg-9c472db5
-#        SubnetIds:
-#          - subnet-ec51438b
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-9c472db5
+        SubnetIds:
+          - subnet-ec51438b
 
   ConfigLambdaPermission:
     Type: "AWS::Lambda::Permission"
@@ -93,11 +93,11 @@ Resources:
         EBSEnabled: true
         VolumeSize: 10
         VolumeType: 'gp2'
-#      VPCOptions:
-#        SecurityGroupIds:
-#          - sg-9c472db5
-#        SubnetIds:
-#          - subnet-ec51438b
+      VPCOptions:
+        SecurityGroupIds:
+          - sg-9c472db5
+        SubnetIds:
+          - subnet-ec51438b
 
   PhotoBucketS3:
     Type: 'AWS::S3::Bucket'
