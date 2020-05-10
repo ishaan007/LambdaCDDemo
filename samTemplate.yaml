@@ -189,6 +189,15 @@ Resources:
         SubnetIds:
           - subnet-ec51438b
 
+  ConfigLambdaPermission:
+    Type: "AWS::Lambda::Permission"
+    DependsOn:
+      - SearchPhotosLambda
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref SearchPhotosLambda
+      Principal: apigateway.amazonaws.com
+
   PhotosES:
     Type: AWS::Elasticsearch::Domain
     Properties:
