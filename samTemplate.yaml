@@ -2,18 +2,18 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: CD Demo Lambda
 Resources:
-  APIPhotoAlbum:
+  APIAss3:
     Type: AWS::ApiGateway::RestApi
     Properties:
       Description: 'API for assignment 3 for Cloud Computing and Big Data course'
       EndpointConfiguration:
         Types: 
           - REGIONAL
-      Name: 'APIPhotoAlbum'
+      Name: 'APIAss3'
       Body:
         openapi: "3.0.1"
         info:
-          title: "AI Photo Search"
+          title: "APIAss3"
           description: "AI Photo Search application, built during the Cloud and Big Data course at Columbia University."
           version: "1.0.0"
         servers:
@@ -143,11 +143,11 @@ Resources:
         x-amazon-apigateway-binary-media-types:
         - "image/jpeg"
 
-  APIPhotoAlbumDeployment:
+  APIDeployment:
     Type: AWS::ApiGateway::Deployment
     Properties:
       Description: Lambda API Deployment
-      RestApiId: !Ref APIPhotoAlbum
+      RestApiId: !Ref APIAss3
       StageName: 'beta'
 
   IndexPhotosLambda:
