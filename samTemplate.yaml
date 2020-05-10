@@ -148,6 +148,7 @@ Resources:
     Properties:
       Description: Lambda API Deployment
       RestApiId: !Ref APIPhotoAlbum
+      StageName: 'beta'
 
   IndexPhotosLambda:
     Type: 'AWS::Serverless::Function'
