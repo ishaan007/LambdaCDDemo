@@ -56,7 +56,7 @@ Resources:
       Name: 'SearchResponse'
       ContentType: 'application/json'
       RestApiId: !Ref ApiGatewayRestApi
-      Schema: '{"type" : "object","properties" : {"results" : {"type" : "array","items" : {"$ref":"https://apigateway.amazonaws.com/restapis/ioepn8ggz8/models/Photo"}}}}'
+      Schema: {"type" : "object","properties" : {"results" : {"type" : "array","items" : {"$ref":"https://apigateway.amazonaws.com/restapis/ioepn8ggz8/models/Photo"}}}}
 
   ErrorModel:
     Type: AWS::ApiGateway::Model
@@ -64,7 +64,7 @@ Resources:
       Name: 'Error'
       ContentType: 'application/json'
       RestApiId: !Ref ApiGatewayRestApi
-      Schema: '{"type" : "object","properties" : {"code" : {"type" : "integer","format" : "int32"},"message" : {"type" : "string"}}}'
+      Schema: {"type" : "object","properties" : {"code" : {"type" : "integer","format" : "int32"},"message" : {"type" : "string"}}}
 
   ApiGatewayStage:
     Type: AWS::ApiGateway::Stage
