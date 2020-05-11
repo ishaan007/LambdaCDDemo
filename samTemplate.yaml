@@ -128,6 +128,8 @@ Resources:
               - 'HEAD'
             AllowedOrigins:
               - '*'
+            ExposedHeaders:
+              - ETag
 
 
 #
@@ -164,11 +166,12 @@ Resources:
             Action: 's3:GetObject'
 #            Resource: 'arn:aws:s3:::ass3-b2-cd/*'
             Resource: !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
-
           - Sid: 'Access-to-specific-bucket-only'
             Effect: Allow
             Principal: '*'
-            Action: 's3:PutObject'
+            Action:
+              - 's3:PutObject'
+              - 's3:PutObjectAcl'
             Resource: !Join [ "/", [ !GetAtt PhotoBucketS3.Arn, '*']]
 
 
