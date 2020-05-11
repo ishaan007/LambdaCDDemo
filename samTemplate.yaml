@@ -116,6 +116,20 @@ Resources:
       WebsiteConfiguration:
         ErrorDocument: 'error.html'
         IndexDocument: 'index.html'
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - 'POST'
+              - 'GET'
+              - 'PUT'
+              - 'DELETE'
+              - 'HEAD'
+            AllowedOrigins:
+              - '*'
+            
+
 #
   PhotoBucketS3Policy:
     Type: 'AWS::S3::BucketPolicy'
