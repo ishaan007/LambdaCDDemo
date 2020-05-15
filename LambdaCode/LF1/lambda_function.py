@@ -42,6 +42,7 @@ def lambda_handler(event, context):
     # print("EVENT:", event)
     # print("CONTEXT:", context)
     print("hello ow")
+    print("dummy print")
     bucket = event['Records'][0]['s3']['bucket']['name']
     img_key = event['Records'][0]['s3']['object']['key']
     # print(bucket)
