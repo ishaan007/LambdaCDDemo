@@ -41,6 +41,7 @@ def detect_labels(photo, bucket):
 def lambda_handler(event, context):
     # print("EVENT:", event)
     # print("CONTEXT:", context)
+    print("hello ow")
     bucket = event['Records'][0]['s3']['bucket']['name']
     img_key = event['Records'][0]['s3']['object']['key']
     # print(bucket)
@@ -66,4 +67,3 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps('Hello from Lambda!')
     }
-
